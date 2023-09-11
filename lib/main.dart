@@ -1,4 +1,8 @@
+import 'package:biometric_auth/cubits/biometric_cubit.dart';
+import 'package:biometric_auth/screens/auth_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +16,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
+      home: BlocProvider(
+        create: (context) => BiometricCubit()
+          ..checkBiometricSupport()
+          ..loadBiometricStatus(),
+        child: const BiometricScreen(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -50,6 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Authenticate"),
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
